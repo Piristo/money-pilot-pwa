@@ -1,0 +1,27 @@
+{
+  "name": "MoneyPilot - Personal Finance Tracker",
+  "short_name": "MoneyPilot",
+  "description": "Track your money, budgets, and auto expenses in one place",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#22c55e",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "productivity"],
+  "lang": "ru",
+  "dir": "ltr"
+}
