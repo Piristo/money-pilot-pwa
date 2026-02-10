@@ -16,18 +16,63 @@ Each task builds on previous work, with testing integrated throughout to catch i
 ## Tasks
 
 - [ ] 1. Set up PWA infrastructure and configuration
-  - Install next-pwa and idb dependencies
-  - Create web app manifest with all required fields
-  - Generate app icons in required sizes (192x192, 512x512, maskable)
-  - Configure next-pwa in next.config.ts with caching strategies
-  - Add manifest link and meta tags to app layout
-  - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 1.10, 9.4, 9.6, 9.7, 9.8, 9.9_
+  - [ ] 1.1 Install PWA dependencies
+    - Install next-pwa package: `npm install next-pwa`
+    - Install idb package for IndexedDB: `npm install idb`
+    - Verify installations in package.json
+    - _Requirements: 2.1, 3.1_
+  
+  - [x] 1.2 Create PWA app icons
+    - Create icon-192.png (192x192px) in public folder
+    - Create icon-512.png (512x512px) in public folder
+    - Ensure icons follow maskable icon guidelines (safe zone in center 80%)
+    - Use MoneyPilot brand colors (primary: #22c55e green, background: #09090b dark)
+    - Test icons using https://maskable.app/ to verify safe zones
+    - Remove placeholder .txt files (icon-192.png.txt, icon-512.png.txt)
+    - **Icon Creation Options:**
+      - **Option A (Recommended)**: Use online tool like https://www.pwabuilder.com/imageGenerator
+      - **Option B**: Design in Figma/Sketch at 512x512, export both sizes
+      - **Option C**: Use ImageMagick: `convert source.png -resize 192x192 icon-192.png`
+    - **Design Guidelines:**
+      - Simple, recognizable logo/symbol for MoneyPilot
+      - Solid background color (use #09090b or #22c55e)
+      - Keep critical content within center 80% (safe zone for maskable icons)
+      - High contrast for visibility on various backgrounds
+      - Consider using a dollar sign ($), wallet, or money-related icon
+    - _Requirements: 1.6, 1.7, 9.7, 9.9_
+  
+  - [ ] 1.3 Verify manifest.json configuration
+    - Confirm manifest.json exists in public folder with all required fields
+    - Verify icon paths match created files (/icon-192.png, /icon-512.png)
+    - Verify theme_color and background_color are set correctly
+    - Verify display mode is "standalone" and orientation is "portrait"
+    - Test manifest is accessible at /manifest.json
+    - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 1.10_
+  
+  - [ ] 1.4 Configure next-pwa in next.config.ts
+    - Import and configure next-pwa plugin
+    - Set dest to "public" for service worker output
+    - Enable register and skipWaiting options
+    - Disable PWA in development mode
+    - Configure runtime caching strategies (will be detailed in task 5)
+    - _Requirements: 2.1, 2.2, 9.4_
+  
+  - [ ] 1.5 Add PWA meta tags to app layout
+    - Add manifest link to layout.tsx
+    - Add theme-color meta tag
+    - Add apple-touch-icon link for iOS
+    - Add apple-web-app-capable meta tag
+    - Add viewport meta tag if not present
+    - _Requirements: 1.1, 9.6, 9.8, 11.6_
 
-- [ ]* 1.1 Write unit tests for manifest validation
+- [ ]* 1.6 Write unit tests for manifest and icon validation
   - Test all required manifest fields exist with correct values
-  - Test icon sizes and purposes are correct
+  - Test icon files exist at specified paths (/icon-192.png, /icon-512.png)
+  - Test icon sizes are correct (192x192, 512x512)
+  - Test icons are valid PNG files
   - Test manifest is valid JSON and accessible at /manifest.json
-  - _Requirements: 1.1-1.10_
+  - Test manifest includes purpose "any maskable" for icons
+  - _Requirements: 1.1-1.10, 9.7, 9.9_
 
 - [ ] 2. Implement offline storage manager with IndexedDB
   - [ ] 2.1 Create OfflineTransaction interface and data models

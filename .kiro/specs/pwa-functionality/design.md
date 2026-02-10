@@ -130,26 +130,84 @@ interface Icon {
   "background_color": "#ffffff",
   "icons": [
     {
-      "src": "/icons/icon-192x192.png",
+      "src": "/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
-      "src": "/icons/icon-512x512.png",
+      "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icons/icon-maskable-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ]
 }
 ```
+
+**PWA Icon Requirements and Best Practices**:
+
+Icons are critical for PWA installation and must meet specific requirements:
+
+**Required Sizes**:
+- **192x192px**: Minimum size for Android home screen and app drawer
+- **512x512px**: Used for splash screens and high-resolution displays
+
+**Maskable Icons**:
+- Maskable icons adapt to different device shapes (circle, squircle, rounded square)
+- Must include a **safe zone**: critical content within the center 80% of the icon
+- Outer 20% (10% on each side) may be cropped by the device
+- Use `"purpose": "any maskable"` to serve as both standard and maskable icon
+
+**Design Guidelines**:
+- **Simple and recognizable**: Icon should be clear at small sizes
+- **Solid background**: Avoid transparency for maskable icons (use brand color)
+- **Centered logo**: Keep main visual element in the safe zone (center 80%)
+- **High contrast**: Ensure icon stands out on various backgrounds
+- **Consistent branding**: Match app's visual identity and color scheme
+
+**Icon Creation Methods**:
+
+1. **Online Tools** (Recommended for quick generation):
+   - [PWA Asset Generator](https://www.pwabuilder.com/imageGenerator): Upload logo, generates all sizes
+   - [Favicon.io](https://favicon.io/): Create from text, image, or emoji
+   - [RealFaviconGenerator](https://realfavicongenerator.net/): Comprehensive icon generator
+
+2. **Design Software**:
+   - Figma/Sketch: Design at 512x512, export at required sizes
+   - Photoshop/GIMP: Create artboard at 512x512, save as PNG
+   - Inkscape: Vector design, export to PNG at specific dimensions
+
+3. **Command Line** (ImageMagick):
+   ```bash
+   # Resize from source image
+   convert source.png -resize 192x192 icon-192.png
+   convert source.png -resize 512x512 icon-512.png
+   ```
+
+**Maskable Icon Template**:
+```
+┌─────────────────────────────┐
+│ ← 10% margin (may be cut) →│
+│  ┌─────────────────────┐   │
+│  │                     │   │
+│  │   Safe Zone (80%)   │   │
+│  │   Place logo here   │   │
+│  │                     │   │
+│  └─────────────────────┘   │
+│ ← 10% margin (may be cut) →│
+└─────────────────────────────┘
+```
+
+**Testing Icons**:
+- Use [Maskable.app](https://maskable.app/) to preview how icons look on different devices
+- Test installation on real iOS and Android devices
+- Verify icons appear correctly in app drawer, home screen, and splash screen
+
+**Current Status**:
+- Manifest references `/icon-192.png` and `/icon-512.png`
+- Placeholder `.txt` files exist but actual PNG files need to be created
+- Icons should use MoneyPilot brand colors (primary: #22c55e green, background: #09090b dark)
 
 ### 2. Service Worker Configuration (`next.config.ts`)
 
